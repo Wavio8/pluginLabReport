@@ -30,7 +30,6 @@ public class CreaterReportPlugin extends AnAction {
             Messages.showMessageDialog("Error with docx file", "Error Message", Messages.getInformationIcon());
         }
 
-
     }
 
     @Override
@@ -40,7 +39,6 @@ public class CreaterReportPlugin extends AnAction {
 
     public void createDocxFile(String highlightStr) throws IOException {
         String fileName = "D:\\devtools5lab\\pluginLabReport\\report.docx";
-
 
         try (XWPFDocument doc = new XWPFDocument()) {
 
@@ -62,7 +60,15 @@ public class CreaterReportPlugin extends AnAction {
             r2.addBreak();
             r2.setFontSize(14);
             r2.setBold(false);
-            r2.setText(highlightStr);
+            for (int i = 0; i < highlightStr.length(); i++) {
+                if (highlightStr.charAt(i) == '\n') {
+                    r2.addBreak();
+                    System.out.println(highlightStr.charAt(i));
+                } else {
+                    String strChar = Character.toString(highlightStr.charAt(i));
+                    r2.setText(strChar);
+                }
+            }
 
             // save it to .docx file
             try (FileOutputStream out = new FileOutputStream(fileName)) {
